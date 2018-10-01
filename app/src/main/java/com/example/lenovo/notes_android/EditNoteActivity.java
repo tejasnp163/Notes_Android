@@ -126,4 +126,10 @@ public class EditNoteActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void onDestroy() {
+
+        super.onDestroy();
+        database.close();
+    }
 }
