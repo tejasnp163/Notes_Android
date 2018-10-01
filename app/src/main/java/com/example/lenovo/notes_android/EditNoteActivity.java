@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class EditNoteActivity extends AppCompatActivity {
     public final DatabaseHandler database = new DatabaseHandler(this);
     private String title;
+    private String description;
     private EditText titleText;
     private EditText descriptionText;
 
@@ -39,7 +40,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
             Intent intent = getIntent();
             title = intent.getStringExtra("Title");
-            String description = intent.getStringExtra("Description");
+            description = intent.getStringExtra("Description");
             titleText.setText(title);
             descriptionText.setText(description);
         }
@@ -84,12 +85,21 @@ public class EditNoteActivity extends AppCompatActivity {
             String new_description_text = new_description.getText().toString();
             new_description_text = new_description_text.trim();
             new_description.setText(new_description_text);
-            if (database.update(title, new_title_text, new_description_text, this)) {
+            if(new_description_text.equals(description) && new_title_text.equals(title))
+            {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-            } else {
-                Toast toast = Toast.makeText(this, "Somethings Wrong!! Check The Title!!", Toast.LENGTH_SHORT);
-                toast.show();
+            }
+            else {
+
+
+                if (database.update(title, new_title_text, new_description_text, this)) {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(this, "Somethings Wrong!! Check The Title!!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         }
     }
