@@ -35,9 +35,25 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         final String title = listItem.getHead();
         final String description = listItem.getDesc();
+        String temp;
+        if(title.length()>37)
+        {
+            temp = title.substring(0,26) + "...";
+            viewHolder.textViewTitle.setText(temp);
+        }
+        else {
+            viewHolder.textViewTitle.setText(title);
+        }
 
-        viewHolder.textViewTitle.setText(title);
-        viewHolder.textViewDescription.setText(description);
+        if(description.length()>70)
+        {
+            temp = description.substring(0,100) + "...";
+            viewHolder.textViewDescription.setText(temp);
+        }
+        else {
+            viewHolder.textViewDescription.setText(description);
+        }
+
 
         //If User click on a note it will call another activity thorough Intent
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +75,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewTitle;
-        public TextView textViewDescription;
-        public LinearLayout parentLayout;
+        private TextView textViewTitle;
+        private TextView textViewDescription;
+        private LinearLayout parentLayout;
 
         //Creates a ViewHolder which can holds the Note's data
         public ViewHolder(@NonNull View itemView) {
